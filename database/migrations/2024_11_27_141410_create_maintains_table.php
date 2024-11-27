@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('manufacturers', function (Blueprint $table) {
+        Schema::create('maintains', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('title')->index();
+            $table->string('title_slug')->unique();
+            $table->text('body');
+            $table->text('image');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manufacturers');
+        Schema::dropIfExists('maintains');
     }
 };

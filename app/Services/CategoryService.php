@@ -16,7 +16,13 @@ class CategoryService
     }
     public function create(array $data)
     {
-        return Category::create($data);
+        $category = new Category();
+        $category->name = $data['name'];
+        $imageName = (string) Str::uuid().'-'.Str::random(15).'.'.$data['image']->getClientOriginalExtension();
+        $data['image']->move(public_path('/category'),$imageName);
+        $imagesName = 'category/' . $imageName; 
+        $category->image = $imagesName;
+        return $category;
     }
 
     public function getById($id)
@@ -27,13 +33,28 @@ class CategoryService
     public function update($id, array $data)
     {
         $category = $this->getByUuid($id);
-        $category->update($data);
+        $category->name = $data['name'];
+        if(isset($data['image'])){
+            $imageName = (string) Str::uuid().'-'.Str::random(15).'.'.$data['image']->getClientOriginalExtension();
+            $data['image']->move(public_path('/category'),$imageName);
+            $imagesName = 'category/' . $imageName; 
+
+            if(file_exists(public_path('/category/'.$category->image))){
+                unlink(public_path('/category/'.$category->image));
+            }
+        }
+        
+        $category->image = $imagesName;
+        $category->save();
         return $category;
     }
 
     public function delete($id)
     {
         $category =  $this->getByUuid($id);
+        if(file_exists(public_path('/category/'.$category->image))){
+            unlink(public_path('/category/'.$category->image));
+        }
         $category->delete();
     }
 }

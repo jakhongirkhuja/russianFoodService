@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Manufacturer;
 use App\Http\Requests\StoreManufacturerRequest;
+use App\Http\Requests\UpdateManufacturerRequest;
 
 class ManufacturerService
 {

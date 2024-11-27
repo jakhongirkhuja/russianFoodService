@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryUpdateRequest $request, $id)
     {
         $category = $this->categoryService->update($id, $request->validated());
         return response()->json($category);
