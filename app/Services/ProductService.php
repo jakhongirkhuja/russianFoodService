@@ -13,13 +13,13 @@ class ProductService
     {
         
         $product = new Product();
-        $product->saveModel($request->validated());
-        return $product;
+        return $product->saveModel($request->validated());
     }
 
     // Get Product by UUID
     public function getByUuid($uuid)
     {
+       
         return Product::where('uuid', $uuid)->firstOrFail();
     }
 
@@ -42,6 +42,6 @@ class ProductService
     // Get All Products
     public function getAll()
     {
-        return Product::all();
+        return Product::with('manufacturer','countryImport','countryMadeIn','category')->get();
     }
 }

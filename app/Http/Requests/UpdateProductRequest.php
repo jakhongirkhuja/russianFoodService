@@ -22,9 +22,13 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:1000',
+            'meta_keywords' => 'nullable|string|max:1000',
+            
             'manufacturer_id' => 'required|exists:manufacturers,id',
             'country_import_id' => 'required|exists:countries,id',
-            'country_madeIn_id' => 'required|exists:countries,id',
+            'country_made_in_id' => 'required|exists:countries,id',
             'category_id' => 'required|exists:categories,id',
             'weight' => 'required|numeric',
             'packing' => 'required|string|max:255',
@@ -32,8 +36,6 @@ class UpdateProductRequest extends FormRequest
             'content' => 'required|string',
             'body' => 'required|string',
             'type' => 'required|in:xits,new product,favorite',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ];
     }
 }

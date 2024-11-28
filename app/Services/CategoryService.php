@@ -22,6 +22,7 @@ class CategoryService
         $data['image']->move(public_path('/category'),$imageName);
         $imagesName = 'category/' . $imageName; 
         $category->image = $imagesName;
+        $category->save();
         return $category;
     }
 
@@ -38,13 +39,13 @@ class CategoryService
             $imageName = (string) Str::uuid().'-'.Str::random(15).'.'.$data['image']->getClientOriginalExtension();
             $data['image']->move(public_path('/category'),$imageName);
             $imagesName = 'category/' . $imageName; 
-
-            if(file_exists(public_path('/category/'.$category->image))){
-                unlink(public_path('/category/'.$category->image));
+            if(file_exists(public_path($category->image))){
+                unlink(public_path($category->image));
             }
+            $category->image = $imagesName;
         }
         
-        $category->image = $imagesName;
+        
         $category->save();
         return $category;
     }
@@ -52,8 +53,8 @@ class CategoryService
     public function delete($id)
     {
         $category =  $this->getByUuid($id);
-        if(file_exists(public_path('/category/'.$category->image))){
-            unlink(public_path('/category/'.$category->image));
+        if(file_exists(public_path($category->image))){
+            unlink(public_path($category->image));
         }
         $category->delete();
     }
