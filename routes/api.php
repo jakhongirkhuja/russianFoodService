@@ -4,7 +4,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MaintainController;
 use App\Http\Controllers\ManufactureController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +48,20 @@ Route::prefix('service')->group(function() {
     Route::put('{slug}', [MaintainController::class, 'update']);
     Route::delete('{slug}', [MaintainController::class, 'destroy']);
 });
+
+Route::prefix('news')->group(function() {
+    Route::get('', [NewsController::class, 'index']);
+    Route::post('', [NewsController::class, 'store']);
+    Route::get('{uuid}', [NewsController::class, 'show']);
+    Route::put('{uuid}', [NewsController::class, 'update']);
+    Route::delete('{uuid}', [NewsController::class, 'destroy']);
+});
+
+Route::prefix('tags')->group(function () {
+    Route::get('/', [TagController::class, 'index']);           
+    Route::post('/', [TagController::class, 'store']);         
+    Route::get('/{tag}', [TagController::class, 'show']);       
+    Route::put('/{tag}', [TagController::class, 'update']);    
+    Route::delete('/{tag}', [TagController::class, 'destroy']); 
+});
+
