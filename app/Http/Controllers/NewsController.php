@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\News;
 use App\Services\NewsService;
 use Illuminate\Http\Response;
@@ -18,7 +19,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        return response()->json(News::all());
+        return response()->json(News::paginate(30));
     }
 
     public function store(NewsRequest $request)
@@ -33,7 +34,7 @@ class NewsController extends Controller
         return response()->json($news);
     }
 
-    public function update(NewsRequest $request, $uuid)
+    public function update(NewsUpdateRequest $request, $uuid)
     {
         $news = News::where('uuid', $uuid)->firstOrFail();
         $updatedNews = $this->newsService->updateNews($news, $request->validated());

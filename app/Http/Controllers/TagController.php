@@ -28,19 +28,22 @@ class TagController extends Controller
         return response()->json($tag, 201);
     }
 
-    public function show(Tag $tag): JsonResponse
+    public function show($id): JsonResponse
     {
-        return response()->json($tag, 200);
+
+        return response()->json(Tag::findOrFail($id), 200);
     }
 
-    public function update(TagRequest $request, Tag $tag): JsonResponse
+    public function update(TagRequest $request, $id): JsonResponse
     {
-        $tag = $this->tagService->updateTag($tag, $request->validated());
-        return response()->json($tag,200);
+        $tag = Tag::findOrFail($id);
+       
+        return response()->json($this->tagService->updateTag($tag, $request->validated()),200);
     }
 
-    public function destroy(Tag $tag): JsonResponse
+    public function destroy($id): JsonResponse
     {
+        $tag = Tag::findOrFail($id);
         $this->tagService->deleteTag($tag);
         return response()->json(null,204);
     }

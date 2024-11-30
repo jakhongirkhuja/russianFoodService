@@ -12,6 +12,7 @@ class CategoryService
     }
     public function getByUuid($uuid)
     {
+        
         return Category::where('uuid', $uuid)->firstOrFail();
     }
     public function create(array $data)

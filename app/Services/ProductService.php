@@ -42,6 +42,6 @@ class ProductService
     // Get All Products
     public function getAll()
     {
-        return Product::with('manufacturer','countryImport','countryMadeIn','category')->get();
+        return Product::with('manufacturer','countryImport','countryMadeIn','category')->paginate(40);
     }
 }
