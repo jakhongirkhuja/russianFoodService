@@ -16,7 +16,7 @@ class MaintainService
      */
     public function getBySlug($slug)
     {
-        return Maintain::where('title_slug', $slug)->firstOrFail();
+        return Maintain::where('uuid', $slug)->firstOrFail();
     }
     public function getAll()
     {
@@ -25,6 +25,9 @@ class MaintainService
     public function createMaintain(array $data): Maintain
     {
         $maintain = new Maintain();
+        $maintain->meta_title = $data['meta_title'];
+        $maintain->meta_description = $data['meta_description'];
+        $maintain->meta_keywords = $data['meta_keywords'];
         $maintain->title = $data['title'];
         $maintain->title_slug = $this->generateUniqueSlug($data['title']);
         $maintain->body = $data['body'] ?? null;
@@ -43,6 +46,9 @@ class MaintainService
     public function updateMaintain(Maintain $maintain, array $data): Maintain
     {
         $maintain->title = $data['title'];
+        $maintain->meta_title = $data['meta_title'];
+        $maintain->meta_description = $data['meta_description'];
+        $maintain->meta_keywords = $data['meta_keywords'];
         $maintain->title_slug = $this->generateUniqueSlug($data['title'], $maintain->id);
         $maintain->body = $data['body'];
         if (!empty($data['image'])) {

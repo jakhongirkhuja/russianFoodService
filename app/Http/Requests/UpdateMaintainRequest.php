@@ -22,6 +22,9 @@ class UpdateMaintainRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'meta_title' => 'required|string|max:255',
+            'meta_description' => 'required|string|max:1000',
+            'meta_keywords' => 'required|string|max:1000',
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'image' => 'nullable|image|max:2048',

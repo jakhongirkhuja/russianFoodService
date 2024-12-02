@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('title')->index();
+            $table->string('title_slug')->unique();
             $table->text('image');
             $table->text('body');
             $table->string('type')->default('Интересно')->index();

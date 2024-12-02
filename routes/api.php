@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\IndexController as ApiIndexController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
@@ -23,6 +24,40 @@ Route::get('/list-countries', [IndexController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); 
+
+Route::prefix('v1')->group(function(){
+    Route::prefix('front')->group(function(){
+        Route::get('categories', [ApiIndexController::class, 'categories']);
+        Route::get('countries', [ApiIndexController::class, 'countries']);
+        
+        Route::get('products', [ApiIndexController::class, 'products']);
+        Route::get('products/{slug}', [ApiIndexController::class, 'productIndex']);
+
+        Route::get('services', [ApiIndexController::class, 'services']);
+        Route::get('services/{slug}', [ApiIndexController::class, 'serviceIndex']);
+
+        Route::get('faqs', [ApiIndexController::class, 'faqs']);
+
+        
+        Route::get('events', [ApiIndexController::class, 'events']);
+        Route::get('events/{slug}', [ApiIndexController::class, 'eventsIndex']);
+        Route::get('events/{slug}/similars', [ApiIndexController::class, 'eventsSimilar']);
+
+
+
+
+        Route::get('news', [ApiIndexController::class, 'news']);
+        Route::get('news/{slug}', [ApiIndexController::class, 'newsIndex']);
+        Route::get('news/{slug}/similars', [ApiIndexController::class, 'newsSimilar']);
+
+        Route::post('form/submit',[ApiIndexController::class,'formSubmit']);
+    });
+
+});
+
+Route::get('/list-countries', [IndexController::class, 'index']);
+
+
 
 Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
     Route::prefix('categories')->group(function() {
@@ -53,9 +88,9 @@ Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
     Route::prefix('service')->group(function() {
         Route::get('/', [MaintainController::class, 'index']);
         Route::post('/', [MaintainController::class, 'store']);
-        Route::get('{slug}', [MaintainController::class, 'show']);
-        Route::post('{slug}', [MaintainController::class, 'update']);
-        Route::delete('{slug}', [MaintainController::class, 'destroy']);
+        Route::get('{uuid}', [MaintainController::class, 'show']);
+        Route::post('{uuid}', [MaintainController::class, 'update']);
+        Route::delete('{uuid}', [MaintainController::class, 'destroy']);
     });
     
     Route::prefix('news')->group(function() {

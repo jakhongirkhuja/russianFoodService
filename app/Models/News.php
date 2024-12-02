@@ -17,8 +17,26 @@ class News extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
+            $model->uuid = Str::uuid()->toString();
+            $model->generateTitleSlug();
         });
+        static::updating(function ($model) {
+            $model->generateTitleSlug();
+        });
+    }
+
+    public function generateTitleSlug()
+    {
+        $slug = Str::slug($this->title);
+        $existingProduct = News::where('id','!=',$this->id)->where('title_slug', $slug)->first();
+        $count = 1;
+        while ($existingProduct) {
+            $slug = Str::slug($this->title) . '-' . $count;
+            $existingProduct = News::where('id','!=',$this->id)->where('title_slug', $slug)->first();
+            $count++;
+        }
+
+        $this->title_slug = $slug;
     }
     public function tags()
     {

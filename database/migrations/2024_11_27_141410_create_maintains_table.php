@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('maintains', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+
+            $table->text('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
+
             $table->string('title')->index();
             $table->string('title_slug')->unique();
             $table->text('body');
