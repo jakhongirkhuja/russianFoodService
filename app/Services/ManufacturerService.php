@@ -24,6 +24,7 @@ class ManufacturerService
     // Update Manufacturer
     public function update(StoreManufacturerRequest $request, $uuid)
     {
+       
         $manufacturer = $this->getByUuid($uuid);
         $manufacturer->update($request->validated());
         return $manufacturer;

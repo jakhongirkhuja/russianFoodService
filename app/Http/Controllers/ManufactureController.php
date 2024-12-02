@@ -39,6 +39,7 @@ class ManufactureController extends Controller
     // Update Manufacturer
     public function update(StoreManufacturerRequest $request, $uuid)
     {
+        
         $manufacturer = $this->manufacturerService->update($request, $uuid);
         return response()->json($manufacturer);
     }

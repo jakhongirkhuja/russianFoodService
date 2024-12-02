@@ -29,7 +29,7 @@ class NewsRequest extends FormRequest
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
             'body' => 'required|string',
             'type' => 'required|string|max:255',
-            'tags' => 'required|array',
+            'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id'
         ];
     }

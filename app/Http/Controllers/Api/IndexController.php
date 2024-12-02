@@ -72,7 +72,7 @@ class IndexController extends Controller
         $event = Event::where('title_slug', $slug)->first();
        
         if($event){
-            $similars = Event::where('category',$event->category )->latest()->take(3)->get();
+            $similars = Event::where('category',$event->category )->where('id','!=',$event->id)->latest()->take(3)->get();
             return response()->json($similars);
         }else{
             return response()->json([]);
@@ -86,7 +86,7 @@ class IndexController extends Controller
     public function news(){
         
        
-            $news = News::latest()->paginate(40);
+            $news = News::with('tags')->latest()->paginate(40);
        
         return response()->json($news);
     }
@@ -94,7 +94,7 @@ class IndexController extends Controller
         $news = News::where('title_slug', $slug)->first();
        
         if($news){
-            $new = News::where('type',$news->type )->latest()->take(3)->get();
+            $new = News::where('type',$news->type )->where('id','!=',$news->id)->latest()->take(3)->get();
             return response()->json($new);
         }else{
             return response()->json([]);

@@ -200,11 +200,15 @@ class IndexController extends Controller
             "Вьетнам",
             "Йемен"
         ];
-        // foreach ($countries as $key => $country) {
-        //     $newcountry = new Country();
-        //     $newcountry->name = $country;
-        //     $newcountry->save();
-        // }
+        $country = Country::first();
+        if(!$country){
+            foreach ($countries as $key => $country) {
+                $newcountry = new Country();
+                $newcountry->name = $country;
+                $newcountry->save();
+            }
+        }
+       
         return response()->json(Country::all());
     }
     public function web(){

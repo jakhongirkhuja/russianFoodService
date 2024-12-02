@@ -35,7 +35,9 @@ class MaintainController extends Controller
 
     public function update(UpdateMaintainRequest $request,  $slug)
     {
-        $updatedMaintain = $this->maintainService->updateMaintain($slug, $request->validated());
+        $maintain = $this->maintainService->getBySlug($slug);
+       
+        $updatedMaintain = $this->maintainService->updateMaintain($maintain, $request->validated());
 
         return response()->json($updatedMaintain, 200);
     }
