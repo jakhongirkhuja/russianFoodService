@@ -12,12 +12,16 @@ use App\Models\Maintain;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Question;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     public function categories(){
         return response()->json(Category::latest()->get());
+    }
+    public function regionMap(){
+        return response()->json(Region::all());
     }
     public function countries(){
         return response()->json(Country::select('id','name')->get());

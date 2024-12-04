@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Region;
+use Illuminate\Http\Request;
+
+class RegionController extends Controller
+{
+    public function index(){
+        $regions = [
+            ['name' => 'Respublika Saha Yakutiya', 'name_ru' => 'Республика Саха (Якутия)', 'goods' => 45123, 'producers' => 2100],
+            ['name' => 'Chukotskij avtonomnyj okrug', 'name_ru' => 'Чукотский автономный округ', 'goods' => 1234, 'producers' => 500],
+            ['name' => 'Magadanskaya oblast\'', 'name_ru' => 'Магаданская область', 'goods' => 5678, 'producers' => 800],
+            ['name' => 'Primorskij kraj', 'name_ru' => 'Приморский край', 'goods' => 9012, 'producers' => 1200],
+            ['name' => 'Habarovskij kraj', 'name_ru' => 'Хабаровский край', 'goods' => 3456, 'producers' => 600],
+            ['name' => 'Evrejskaya avtonomnaya oblast\'', 'name_ru' => 'Еврейская автономная область', 'goods' => 7890, 'producers' => 1000],
+            ['name' => 'Amurskaya oblast\'', 'name_ru' => 'Амурская область', 'goods' => 2345, 'producers' => 400],
+            ['name' => 'Sahalinskaya oblast\'', 'name_ru' => 'Сахалинская область', 'goods' => 6789, 'producers' => 900],
+            ['name' => 'Voronezhskaya oblast\'', 'name_ru' => 'Воронежская область', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Belgorodskaya oblast\'', 'name_ru' => 'Белгородская область', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Kurskaya oblast\'', 'name_ru' => 'Курская область', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Bryanskaya oblast\'', 'name_ru' => 'Брянская область', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Smolenskaya oblast\'', 'name_ru' => 'Смоленская область', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Orlovskaya oblast\'', 'name_ru' => 'Орловская область', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Lipeckaya oblast\'', 'name_ru' => 'Липецкая область', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Tambovskaya oblast\'', 'name_ru' => 'Тамбовская область', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Tul\'skaya oblast\'', 'name_ru' => 'Тульская область', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Ryazanskaya oblast\'', 'name_ru' => 'Рязанская область', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Kaluzhskaya oblast\'', 'name_ru' => 'Калужская область', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Moskovskaya oblast\'', 'name_ru' => 'Московская область', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Voronezhskaya oblast\'_2', 'name_ru' => 'Воронежская область_2', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Voronezhskaya oblast\'_3', 'name_ru' => 'Воронежская область_3', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Kostromskaya oblast\'', 'name_ru' => 'Костромская область', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Tverskaya oblast\'', 'name_ru' => 'Тверская область', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Yaroslavskaya oblast\'', 'name_ru' => 'Ярославская область', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Orenburgskaya oblast\'', 'name_ru' => 'Оренбургская область', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Saratovskaya oblast\'', 'name_ru' => 'Саратовская область', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Samarskaya oblast\'', 'name_ru' => 'Самарская область', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Ul\'yanovskaya oblast\'', 'name_ru' => 'Ульяновская область', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Penzenskaya oblast\'', 'name_ru' => 'Пензенская область', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Respublika Mordoviya', 'name_ru' => 'Республика Мордовия', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Chuvashskaya respublika', 'name_ru' => 'Чувашская Республика', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Nizhegorodskaya oblast\'', 'name_ru' => 'Нижегородская область', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Kirovskaya oblast\'', 'name_ru' => 'Кировская область', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Respublika Tatarstan', 'name_ru' => 'Республика Татарстан', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Udmurtskaya Respublika', 'name_ru' => 'Удмуртская Республика', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Respublika Bashkortostan', 'name_ru' => 'Республика Башкортостан', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Kirovskaya oblast\'_2', 'name_ru' => 'Кировская область_2', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Yamalo-Neneckij avtonomnyj okrug', 'name_ru' => 'Ямало-Ненецкий автономный округ', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Tyumenskaya oblast\'', 'name_ru' => 'Тюменская область', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Kurganskaya oblast\'', 'name_ru' => 'Курганская область', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Chelyabinskaya oblast\'', 'name_ru' => 'Челябинская область', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Sverdlovskaya oblast\'', 'name_ru' => 'Свердловская область', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Hanty-Mansijskij avtonomnyj okrug Yugra', 'name_ru' => 'Ханты-Мансийский автономный округ — Югра', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Novgorodskaya oblast\'', 'name_ru' => 'Новгородская область', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Vologodskaya oblast\'', 'name_ru' => 'Вологодская область', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Pskovskaya oblast\'', 'name_ru' => 'Псковская область', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Leningradskaya oblast\'', 'name_ru' => 'Ленинградская область', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Murmanskaya oblast\'', 'name_ru' => 'Мурманская область', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Respublika Kareliya', 'name_ru' => 'Республика Карелия', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Respublika Komi', 'name_ru' => 'Республика Коми', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Neneckij avtonomnyj okrug', 'name_ru' => 'Ненецкий автономный округ', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Arhangel\'skaya oblast\'', 'name_ru' => 'Архангельская область', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Kaliningradskaya oblast\'', 'name_ru' => 'Калининградская область', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Rostovskaya oblast\'', 'name_ru' => 'Ростовская область', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Volgogradskaya oblast\'', 'name_ru' => 'Волгоградская область', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Astrahanskaya oblast\'', 'name_ru' => 'Астраханская область', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Respublika Kalmykiya', 'name_ru' => 'Республика Калмыкия', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Respublika Dagestan', 'name_ru' => 'Республика Дагестан', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Chechenskaya respublika', 'name_ru' => 'Чеченская Республика', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Respublika Ingushetiya', 'name_ru' => 'Республика Ингушетия', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Respublika Severnaya Osetiya - Alaniya', 'name_ru' => 'Республика Северная Осетия-Алания', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Kabardino-Balkarskaya respublika', 'name_ru' => 'Кабардино-Балкарская Республика', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Karachaevo-Cherkesskaya respublika', 'name_ru' => 'Карачаево-Черкесская Республика', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Krasnodarskij Kraj', 'name_ru' => 'Краснодарский край', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Stavropol\'skij kraj', 'name_ru' => 'Ставропольский край', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Respublika Adygeya', 'name_ru' => 'Республика Адыгея', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Respublika Buryatiya', 'name_ru' => 'Республика Бурятия', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Respublika Tyva', 'name_ru' => 'Республика Тыва', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Kemerovskaya oblast\'', 'name_ru' => 'Кемеровская область', 'goods' => 56789, 'producers' => 3000],
+            ['name' => 'Respublika Altaj', 'name_ru' => 'Республика Алтай', 'goods' => 90123, 'producers' => 4000],
+            ['name' => 'Altajskij kraj', 'name_ru' => 'Алтайский край', 'goods' => 34567, 'producers' => 2500],
+            ['name' => 'Novosibirskaya oblast\'', 'name_ru' => 'Новосибирская область', 'goods' => 78901, 'producers' => 3500],
+            ['name' => 'Omskaya oblast\'', 'name_ru' => 'Омская область', 'goods' => 23456, 'producers' => 2000],
+            ['name' => 'Tomskaya oblast\'', 'name_ru' => 'Томская область', 'goods' => 67890, 'producers' => 3000],
+            ['name' => 'Respublika Hakasiya', 'name_ru' => 'Республика Хакасия', 'goods' => 123456, 'producers' => 4000],
+            ['name' => 'Irkutskaya oblast\'', 'name_ru' => 'Иркутская область', 'goods' => 567890, 'producers' => 3500],
+            ['name' => 'Zabajkal\'skij kraj', 'name_ru' => 'Забайкальский край', 'goods' => 901234, 'producers' => 4500],
+            ['name' => 'Krasnoyarskij kraj', 'name_ru' => 'Красноярский край', 'goods' => 345678, 'producers' => 3000],
+            ['name' => 'Kamchatskij kraj', 'name_ru' => 'Камчатский край', 'goods' => 789012, 'producers' => 5000],
+            ['name' => 'Permskij kraj', 'name_ru' => 'Пермский край', 'goods' => 12345, 'producers' => 2000],
+            ['name' => 'Respublika Krym', 'name_ru' => 'Республика Крым', 'goods' => 56789, 'producers' => 3000]
+        ];
+        foreach ($regions as $region) {
+            Region::create($region);
+        }
+        dd($regions);
+    }
+}

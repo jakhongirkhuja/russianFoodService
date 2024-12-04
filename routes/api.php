@@ -10,6 +10,7 @@ use App\Http\Controllers\ManufactureController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+// Route::get('/set-regions', [RegionController::class, 'index']);
 Route::get('/list-countries', [IndexController::class, 'index']);
 
 Route::post('login', [AuthController::class, 'login']);
@@ -28,6 +30,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 Route::prefix('v1')->group(function(){
     Route::prefix('front')->group(function(){
         Route::get('categories', [ApiIndexController::class, 'categories']);
+        Route::get('regions-map', [ApiIndexController::class, 'regionMap']);
         Route::get('countries', [ApiIndexController::class, 'countries']);
         
         Route::get('products', [ApiIndexController::class, 'products']);
