@@ -30,7 +30,10 @@ class NewsUpdateRequest extends FormRequest
             'body' => 'required|string',
             'type' => 'required|string|max:255',
             'tags' => 'required|array',
-            'tags.*' => 'exists:tags,id'
+            'tags.*' => 'exists:tags,id',
+            'category' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'event_date' => 'nullable|date|after:today',
         ];
     }
 }

@@ -9,7 +9,7 @@ class News extends Model
     protected $table = 'news';
     protected $fillable = [
         'uuid', 'meta_title', 'meta_description', 'meta_keywords',
-        'title', 'image', 'body', 'type'
+        'title', 'image', 'body', 'type', 'category','location','event_date'
     ];
 
     protected static function boot()

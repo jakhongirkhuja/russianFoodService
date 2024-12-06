@@ -26,6 +26,7 @@ return new class extends Migration
             $table->decimal('weight', 8, 2);
             $table->string('packing');
             $table->string('type')->index();
+            $table->string('lead')->nullable();
             $table->json('images')->nullable();
             $table->unsignedBigInteger('manufacturer_id')->index();
             $table->unsignedBigInteger('country_import_id')->index();

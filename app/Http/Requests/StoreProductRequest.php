@@ -35,9 +35,10 @@ class StoreProductRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'body' => 'required|string',
-            'type' => 'required|in:xits,new product,favorite',
+            'type' => 'required',
             'images' => 'required|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'lead'=>'nullable|max:255',
         ];
     }
 }

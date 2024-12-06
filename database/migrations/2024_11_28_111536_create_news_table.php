@@ -22,6 +22,9 @@ return new class extends Migration
             $table->text('image');
             $table->text('body');
             $table->string('type')->default('Интересно')->index();
+            $table->string('category')->default('news')->index(); // events
+            $table->text('location')->nullable();
+            $table->timestamp('event_date')->nullable();
             $table->timestamps();
         });
     }

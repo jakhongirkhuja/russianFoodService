@@ -40,9 +40,21 @@ class IndexController extends Controller
         if ($categoryId = request('category_id')) {
             $products->where('category_id', $categoryId);
         }
+        if ($lead = request('lead')) {
+            $products->where('lead', $lead);
+        }
         $order = request('order', 'desc');
         $products->orderBy('created_at', $order);
-        $products = $products->paginate(40);
+        $take =null;
+        if($newTake = request('take')){
+            $take = $newTake;
+        }
+        if($take){
+            $products = $products->paginate($take);
+        }else{
+            $products = $products->paginate(40);
+        }
+       
         return response()->json($products);
     }
     public function productIndex($slug){

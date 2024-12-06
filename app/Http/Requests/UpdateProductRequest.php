@@ -25,7 +25,6 @@ class UpdateProductRequest extends FormRequest
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:1000',
             'meta_keywords' => 'nullable|string|max:1000',
-            
             'manufacturer_id' => 'required|exists:manufacturers,id',
             'country_import_id' => 'required|exists:countries,id',
             'country_made_in_id' => 'required|exists:countries,id',
@@ -36,6 +35,7 @@ class UpdateProductRequest extends FormRequest
             'content' => 'required|string',
             'body' => 'required|string',
             'type' => 'required|in:xits,new product,favorite',
+            'lead'=>'nullable|max:255',
         ];
     }
 }

@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'uuid', 'manufacturer_id', 'country_import_id', 'country_madeIn_id', 'product_group_id', 
-        'weight', 'packing', 'title', 'title_slug', 'content', 'body', 'type', 'images','meta_title','meta_description','meta_keywords'
+        'weight', 'packing', 'title','lead', 'title_slug', 'content', 'body', 'type', 'images','meta_title','meta_description','meta_keywords'
     ];
     protected static function boot()
     {
@@ -55,7 +55,7 @@ class Product extends Model
             $product->content = $data['content'];
             $product->body = $data['body'];
             $product->type = $data['type'];
-
+            $product->lead = $data['lead'];
             if(isset($data['meta_title'])){
                 $product->meta_title = $data['meta_title'];
             }
@@ -105,6 +105,7 @@ class Product extends Model
         $this->content = $data['content'];
         $this->body = $data['body'];
         $this->type = $data['type'];
+        $this->lead = $data['lead'];
         $this->save();
     }
     public function deleteModel(){
