@@ -13,6 +13,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RecipeCategoryController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeDietTypeController;
+use App\Http\Controllers\RecipeMealTypeController;
 use App\Http\Controllers\RecipeProductTypeController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TagController;
@@ -34,6 +35,10 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 Route::prefix('v1')->group(function(){
     Route::prefix('front')->group(function(){
         Route::get('categories', [ApiIndexController::class, 'categories']);
+        Route::get('recipes-categories', [ApiIndexController::class, 'recipeCategories']);
+        Route::get('recipes-subCategories', [ApiIndexController::class, 'recipeSubCategories']);
+        Route::get('recipes', [ApiIndexController::class, 'recipes']);
+        Route::get('recipes/{slug}', [ApiIndexController::class, 'recipeIndex']);
         Route::get('regions-map', [ApiIndexController::class, 'regionMap']);
         Route::get('countries', [ApiIndexController::class, 'countries']);
         
@@ -141,6 +146,16 @@ Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
         Route::delete('{uuid}', [RecipeCategoryController::class, 'destroy']); // Delete category
     });
 
+
+    
+    Route::prefix('recipe-meal-types')->group(function () {
+        Route::get('/', [RecipeMealTypeController::class, 'index']);
+        Route::post('/', [RecipeMealTypeController::class, 'store']);
+        Route::get('/{uuid}', [RecipeMealTypeController::class, 'show']);
+        Route::post('/{uuid}', [RecipeMealTypeController::class, 'update']);
+        Route::delete('/{uuid}', [RecipeMealTypeController::class, 'destroy']);
+    });
+
     Route::prefix('recipe-product-types')->group(function () {
         Route::get('/', [RecipeProductTypeController::class, 'index']);
         Route::post('/', [RecipeProductTypeController::class, 'store']);
@@ -161,7 +176,7 @@ Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
         Route::get('/', [RecipeController::class, 'index']);
         Route::post('/', [RecipeController::class, 'store']);
         Route::get('/{uuid}', [RecipeController::class, 'show']);
-        Route::put('/{uuid}', [RecipeController::class, 'update']);
+        Route::post('/{uuid}', [RecipeController::class, 'update']);
         Route::delete('/{uuid}', [RecipeController::class, 'destroy']);
     });
 });

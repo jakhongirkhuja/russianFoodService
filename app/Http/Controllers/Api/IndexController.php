@@ -12,6 +12,11 @@ use App\Models\Maintain;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Question;
+use App\Models\Recipe;
+use App\Models\RecipeCategory;
+use App\Models\RecipeDietType;
+use App\Models\RecipeMealType;
+use App\Models\RecipeProductType;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -19,6 +24,43 @@ class IndexController extends Controller
 {
     public function categories(){
         return response()->json(Category::latest()->get());
+    }
+    public function recipeCategories(){
+        return response()->json(RecipeCategory::orderby('id','asc')->get());
+    }
+    public function recipeSubCategories(){
+        $data['productType']=RecipeProductType::all();
+        $data['mealType']=RecipeMealType::all();
+        $data['dietType']=RecipeDietType::all();
+        return response()->json($data);
+    }
+    public function recipes(){
+        $recipes = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType');
+        if ($recipe_categories_uuid = request('recipe_categories_uuid')) {
+            $recipes->where('recipe_categories_uuid', $recipe_categories_uuid);
+        }
+        if ($recipe_meal_types_uuid = request('recipe_meal_types_uuid')) {
+            $recipes->where('recipe_meal_types_uuid', $recipe_meal_types_uuid);
+        }
+        if ($recipe_product_types_uuid = request('recipe_product_types_uuid')) {
+            $recipes->where('recipe_product_types_uuid', $recipe_product_types_uuid);
+        }
+        if ($recipe_diet_types_uuid = request('recipe_diet_types_uuid')) {
+            $recipes->where('recipe_diet_types_uuid', $recipe_diet_types_uuid);
+        }
+        $take =null;
+        if($newTake = request('take')){
+            $take = $newTake;
+        }
+        if($take){
+            $recipes = $recipes->paginate($take);
+        }else{
+            $recipes = $recipes->paginate(40);
+        }
+        return response()->json($recipes);
+    }
+    public function recipeIndex($slug){
+        return response()->json(Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->where('title_slug',$slug)->first());
     }
     public function regionMap(){
         return response()->json(Region::all());

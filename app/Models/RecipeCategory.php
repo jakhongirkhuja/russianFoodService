@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecipeCategory extends Model
 {
-    protected $fillable = ['uuid', 'body','image','cheaf'];
+    protected $fillable = ['uuid', 'title','body','image','cheaf'];
 
    
 }

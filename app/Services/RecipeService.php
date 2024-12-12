@@ -11,7 +11,7 @@ class RecipeService
     {
         // Generate unique slug
         $data['title_slug'] = $this->generateUniqueSlug($data['title']);
-
+        $data['uuid'] = Str::orderedUuid();
         // Handle image upload
         if (isset($data['image'])) {
             $image = $data['image'];
@@ -20,6 +20,7 @@ class RecipeService
             $data['image'] = 'recipe_images/' . $imageName;
         }
 
+        
         return Recipe::create($data);
     }
 

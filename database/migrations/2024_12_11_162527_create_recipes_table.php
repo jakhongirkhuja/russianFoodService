@@ -21,10 +21,10 @@ return new class extends Migration
             $table->text('image');
             $table->mediumText('body');
             $table->text('title_slug');
-            $table->unsignedBigInteger('recipe_categories_uuid')->index();
-            $table->unsignedBigInteger('recipe_meal_types_uuid')->index();
-            $table->unsignedBigInteger('recipe_product_types_uuid')->index();
-            $table->unsignedBigInteger('recipe_diet_types_uuid')->index();
+            $table->uuid('recipe_categories_uuid')->index();
+            $table->uuid('recipe_meal_types_uuid')->index();
+            $table->uuid('recipe_product_types_uuid')->index();
+            $table->uuid('recipe_diet_types_uuid')->index();
             $table->timestamps();
         });
     }

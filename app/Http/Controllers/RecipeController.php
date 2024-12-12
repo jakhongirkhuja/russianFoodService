@@ -22,8 +22,8 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = Recipe::all();
-        return response()->json(['data' => $recipes], 200);
+        $recipes = Recipe::latest()->paginate(40);
+        return response()->json( $recipes, 200);
     }
 
     /**
@@ -32,24 +32,26 @@ class RecipeController extends Controller
     public function store(StoreRecipeRequest $request)
     {
         $recipe = $this->recipeService->store($request->validated());
-        return response()->json(['message' => 'Recipe created successfully', 'data' => $recipe], 201);
+        return response()->json($recipe, 201);
     }
 
     /**
      * Display the specified recipe.
      */
-    public function show(Recipe $recipe)
+    public function show($uuid)
     {
-        return response()->json(['data' => $recipe], 200);
+        $recipe = Recipe::where('uuid', $uuid)->first();
+        return response()->json($recipe, 200);
     }
 
     /**
      * Update the specified recipe in storage.
      */
-    public function update(UpdateRecipeRequest $request, Recipe $recipe)
+    public function update(UpdateRecipeRequest $request, $uuid)
     {
+        $recipe = Recipe::where('uuid', $uuid)->first();
         $updatedRecipe = $this->recipeService->update($recipe, $request->validated());
-        return response()->json(['message' => 'Recipe updated successfully', 'data' => $updatedRecipe], 200);
+        return response()->json($updatedRecipe, 200);
     }
 
     /**
@@ -64,6 +66,6 @@ class RecipeController extends Controller
 
         $recipe->delete();
 
-        return response()->json(['message' => 'Recipe deleted successfully'], 200);
+        return response()->json(['message' => 'Recipe deleted successfully'], 204);
     }
 }

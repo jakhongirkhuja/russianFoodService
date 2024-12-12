@@ -26,7 +26,7 @@ class RecipeCategoryService
     // Get all recipe categories
     public function getAll()
     {
-        return RecipeCategory::all();
+        return RecipeCategory::orderby('id','asc')->get();
     }
 
     // Get a single recipe category by UUID
