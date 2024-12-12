@@ -10,6 +10,10 @@ use App\Http\Controllers\ManufactureController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RecipeCategoryController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RecipeDietTypeController;
+use App\Http\Controllers\RecipeProductTypeController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -126,6 +130,39 @@ Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
         Route::get('/{uuid}', [EventController::class, 'show']);       
         Route::post('/{uuid}', [EventController::class, 'update']);    
         Route::delete('/{uuid}', [EventController::class, 'destroy']); 
+    });
+
+
+    Route::prefix('recipe-categories')->group(function () {
+        Route::get('/', [RecipeCategoryController::class, 'index']); // Get all categories
+        Route::post('/', [RecipeCategoryController::class, 'store']); // Create new category
+        Route::get('{uuid}', [RecipeCategoryController::class, 'show']); // Get single category by UUID
+        Route::post('{uuid}', [RecipeCategoryController::class, 'update']); // Update category
+        Route::delete('{uuid}', [RecipeCategoryController::class, 'destroy']); // Delete category
+    });
+
+    Route::prefix('recipe-product-types')->group(function () {
+        Route::get('/', [RecipeProductTypeController::class, 'index']);
+        Route::post('/', [RecipeProductTypeController::class, 'store']);
+        Route::get('/{uuid}', [RecipeProductTypeController::class, 'show']);
+        Route::post('/{uuid}', [RecipeProductTypeController::class, 'update']);
+        Route::delete('/{uuid}', [RecipeProductTypeController::class, 'destroy']);
+    });
+
+    Route::prefix('recipe-diet-types')->group(function () {
+        Route::get('/', [RecipeDietTypeController::class, 'index']);
+        Route::post('/', [RecipeDietTypeController::class, 'store']);
+        Route::get('/{uuid}', [RecipeDietTypeController::class, 'show']);
+        Route::post('/{uuid}', [RecipeDietTypeController::class, 'update']);
+        Route::delete('/{uuid}', [RecipeDietTypeController::class, 'destroy']);
+    });
+
+    Route::prefix('recipes')->group(function () {
+        Route::get('/', [RecipeController::class, 'index']);
+        Route::post('/', [RecipeController::class, 'store']);
+        Route::get('/{uuid}', [RecipeController::class, 'show']);
+        Route::put('/{uuid}', [RecipeController::class, 'update']);
+        Route::delete('/{uuid}', [RecipeController::class, 'destroy']);
     });
 });
 
