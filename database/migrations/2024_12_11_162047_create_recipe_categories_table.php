@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('body');
             $table->text('image');
             $table->boolean('cheaf')->default(false);
+            $table->text('type')->default('modern');
             $table->timestamps();
         });
     }

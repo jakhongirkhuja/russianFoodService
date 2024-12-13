@@ -26,6 +26,8 @@ class StoreUpdateRecipeCategoryRequest extends FormRequest
             'body' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'cheaf' => 'nullable|boolean',
+            'type'=>'nullable|string',
+            
         ];
     }
 }
