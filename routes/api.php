@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\IndexController as ApiIndexController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChefController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MaintainController;
@@ -61,6 +62,10 @@ Route::prefix('v1')->group(function(){
         Route::get('news', [ApiIndexController::class, 'news']);
         Route::get('news/{slug}', [ApiIndexController::class, 'newsIndex']);
         Route::get('news/{slug}/similars', [ApiIndexController::class, 'newsSimilar']);
+
+
+        Route::get('chefs', [ApiIndexController::class, 'chefs']);
+        Route::get('chefs/{uuid}', [ApiIndexController::class, 'chefsRecipe']);
 
         Route::post('form/submit',[ApiIndexController::class,'formSubmit']);
     });
@@ -178,6 +183,14 @@ Route::prefix('cabinet')->middleware('auth:sanctum')->group(function() {
         Route::get('/{uuid}', [RecipeController::class, 'show']);
         Route::post('/{uuid}', [RecipeController::class, 'update']);
         Route::delete('/{uuid}', [RecipeController::class, 'destroy']);
+    });
+
+    Route::prefix('chefs')->group(function () {
+        Route::get('/', [ChefController::class, 'index']);
+        Route::post('/', [ChefController::class, 'store']);
+        Route::get('/{uuid}', [ChefController::class, 'show']);
+        Route::post('/{uuid}', [ChefController::class, 'update']);
+        Route::delete('/{uuid}', [ChefController::class, 'destroy']);
     });
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSubmit;
 use App\Models\Category;
+use App\Models\Chef;
 use App\Models\Country;
 use App\Models\Enquiry;
 use App\Models\Event;
@@ -158,6 +159,22 @@ class IndexController extends Controller
             return response()->json([]);
         }
 
+    }
+    public function chefs(){
+        return response()->json(Chef::all());
+    }
+    public function chefsRecipe($uuid){
+        $recipes = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->where('chef_id', $uuid);
+        $take = null;
+        if($newTake = request('take')){
+            $take = $newTake;
+        }
+        if($take){
+            $recipes = $recipes->latest()->paginate($take);
+        }else{
+            $recipes = $recipes->latest()->paginate(40);
+        }
+        return response()->json($recipes);
     }
     public function newsIndex($slug){
         return response()->json(News::with('tags')->where('title_slug', $slug)->firstOrFail());

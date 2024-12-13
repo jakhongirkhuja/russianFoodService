@@ -11,21 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('chefs', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->index();
-            $table->uuid('chef_id')->index();
+            $table->uuid('uuid')->unique();
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
-            $table->text('title');
             $table->text('image');
-            $table->mediumText('body');
-            $table->text('title_slug');
-            $table->uuid('recipe_categories_uuid')->index();
-            $table->uuid('recipe_meal_types_uuid')->index();
-            $table->uuid('recipe_product_types_uuid')->index();
-            $table->uuid('recipe_diet_types_uuid')->index();
+            $table->text('name');
+            $table->text('name_slug');
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('chefs');
     }
 };

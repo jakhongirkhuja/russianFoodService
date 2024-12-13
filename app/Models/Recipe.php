@@ -14,6 +14,7 @@ class Recipe extends Model
         'title',
         'image',
         'body',
+        'chef_id',
         'title_slug',
         'recipe_categories_uuid',
         'recipe_meal_types_uuid',
