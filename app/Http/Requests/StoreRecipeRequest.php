@@ -29,6 +29,7 @@ class StoreRecipeRequest extends FormRequest
             'title' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'body' => 'required|string',
+            'cooking_time'=>'required|numieric|min:1',
             'recipe_categories_uuid' => 'required|exists:recipe_categories,uuid',
             'recipe_meal_types_uuid' => 'required|exists:recipe_meal_types,uuid',
             'recipe_product_types_uuid' => 'required|exists:recipe_product_types,uuid',

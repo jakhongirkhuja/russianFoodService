@@ -11,6 +11,7 @@ class Recipe extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'cooking_time',
         'title',
         'image',
         'body',

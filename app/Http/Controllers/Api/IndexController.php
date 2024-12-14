@@ -163,6 +163,9 @@ class IndexController extends Controller
     public function chefs(){
         return response()->json(Chef::all());
     }
+    public function chefIndex($uuid){
+        return response()->json(Chef::where('uuid',$uuid)->first());
+    }
     public function chefsRecipe($uuid){
         $recipes = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->where('chef_id', $uuid);
         $take = null;
@@ -174,6 +177,7 @@ class IndexController extends Controller
         }else{
             $recipes = $recipes->latest()->paginate(40);
         }
+
         return response()->json($recipes);
     }
     public function newsIndex($slug){

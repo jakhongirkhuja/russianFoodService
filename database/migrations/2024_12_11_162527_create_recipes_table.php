@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('title');
             $table->text('image');
             $table->mediumText('body');
+            $table->integer('cooking_time')->default(10);
             $table->text('title_slug');
             $table->uuid('recipe_categories_uuid')->index();
             $table->uuid('recipe_meal_types_uuid')->index();
