@@ -63,6 +63,15 @@ class IndexController extends Controller
     public function recipeIndex($slug){
         return response()->json(Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->where('title_slug',$slug)->first());
     }
+    public function recipeIndexSimilars($slug){
+        $recipe = Recipe::where('title_slug',$slug)->first();
+        if($recipe){
+
+            $recipes = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->where('recipe_product_types_uuid',$recipe->recipe_product_types_uuid)->where('id','!=',$recipe->id)->latest()->take(10)->get();
+            return response()->json($recipes);
+        }
+        return response()->json(null);
+    }
     public function regionMap(){
         return response()->json(Region::all());
     }

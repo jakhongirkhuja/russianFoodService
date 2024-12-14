@@ -40,6 +40,7 @@ Route::prefix('v1')->group(function(){
         Route::get('recipes-subCategories', [ApiIndexController::class, 'recipeSubCategories']);
         Route::get('recipes', [ApiIndexController::class, 'recipes']);
         Route::get('recipes/{slug}', [ApiIndexController::class, 'recipeIndex']);
+        Route::get('recipes/{slug}/similars', [ApiIndexController::class, 'recipeIndexSimilars']);
         Route::get('regions-map', [ApiIndexController::class, 'regionMap']);
         Route::get('countries', [ApiIndexController::class, 'countries']);
         
