@@ -68,6 +68,8 @@ Route::prefix('v1')->group(function(){
         Route::get('chefs', [ApiIndexController::class, 'chefs']);
         Route::get('chefsIndex/{uuid}', [ApiIndexController::class, 'chefIndex']);
         Route::get('chefs/{uuid}', [ApiIndexController::class, 'chefsRecipe']);
+        
+        Route::get('search', [ApiIndexController::class, 'searchItems']);
 
         Route::post('form/submit',[ApiIndexController::class,'formSubmit']);
     });

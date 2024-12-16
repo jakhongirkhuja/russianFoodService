@@ -22,6 +22,13 @@ class Recipe extends Model
         'recipe_product_types_uuid',
         'recipe_diet_types_uuid',
     ];
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($q) use ($term) {
+            $q->where('title', 'like', '%' . $term . '%')
+            ->orWhere('body', 'like', '%' . $term . '%');
+        });
+    }
     public function recipeCategory()
     {
         return $this->belongsTo(RecipeCategory::class, 'recipe_categories_uuid', 'uuid');

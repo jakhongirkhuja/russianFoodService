@@ -22,6 +22,12 @@ class Chef extends Model
             $model->generateTitleSlug();
         });
     }
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($q) use ($term) {
+            $q->where('name', 'like', '%' . $term . '%');
+        });
+    }
     public function generateTitleSlug()
     {
         $slug = Str::slug($this->name);

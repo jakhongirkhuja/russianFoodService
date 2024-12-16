@@ -203,4 +203,38 @@ class IndexController extends Controller
         $enquiry->save();
         return response()->json($enquiry,201);
     }
+    public function searchItems(){
+        $searchTerm = request('search');
+        if (request('type')=='all') {
+
+            $data['recipes'] = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->search($searchTerm)
+                              ->latest()
+                              ->paginate(20);
+
+            $data['products'] = Product::with('manufacturer','countryImport','countryMadeIn','category')->search($searchTerm)
+                                    ->latest()
+                                    ->paginate(20);
+
+            $data['chefs'] = Chef::search($searchTerm)
+                                ->latest()
+                                ->paginate(20);
+            return response()->json($data,200);
+        } elseif (request('type')=='recipes') {
+            $data['recipes'] = Recipe::with('recipeCategory','recipeMealType','recipeProductType','recipeDietType')->search($searchTerm)
+                              ->latest()
+                              ->paginate(20);
+            return response()->json($data,200);
+        }elseif (request('type')=='products') {
+            $data['products'] = Product::with('manufacturer','countryImport','countryMadeIn','category')->search($searchTerm)
+                                    ->latest()
+                                    ->paginate(20);
+            return response()->json($data,200);
+        } elseif (request('type')=='chefs') {
+            $data['chefs'] = Chef::search($searchTerm)
+                                ->latest()
+                                ->paginate(20);
+            return response()->json($data,200);
+        }
+        return response()->json(null,204);
+    }
 }

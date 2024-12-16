@@ -22,6 +22,14 @@ class Product extends Model
             $model->generateTitleSlug();
         });
     }
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($q) use ($term) {
+            $q->where('title', 'like', '%' . $term . '%')
+            ->orWhere('body', 'like', '%' . $term . '%')
+            ->orWhere('content', 'like', '%' . $term . '%');
+        });
+    }
     public function manufacturer()
     {
         return $this->belongsTo(Manufacturer::class);
